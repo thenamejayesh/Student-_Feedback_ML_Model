@@ -38,10 +38,10 @@ department = st.selectbox("Department", ["IT", "HR", "Finance", "Sales", "Admin"
 
 # Create DataFrame for prediction
 input_data = pd.DataFrame([{
-    "Age": Age,
-    "Experience": Experience,
-    "Salary": Salary,
-    "Department": Department
+    "Age": age,
+    "Experience": experience,
+    "Salary": salary,
+    "Department": department
 }])
 
 # ----------------------------------------------------
