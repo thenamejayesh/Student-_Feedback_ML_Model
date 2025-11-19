@@ -24,7 +24,7 @@ if model is None:
 # ----------------------------------------------------
 # FEATURES USED IN MODEL TRAINING
 # ----------------------------------------------------
-FEATURES = ["age", "experience", "salary", "department"]
+FEATURES = ["Age", "Experience", "Salary", "Department"]
 
 st.subheader("📝 Enter Feature Values")
 
@@ -38,10 +38,10 @@ department = st.selectbox("Department", ["IT", "HR", "Finance", "Sales", "Admin"
 
 # Create DataFrame for prediction
 input_data = pd.DataFrame([{
-    "age": age,
-    "experience": experience,
-    "salary": salary,
-    "department": department
+    "Age": Age,
+    "Experience": Experience,
+    "Salary": Salary,
+    "Department": Department
 }])
 
 # ----------------------------------------------------
