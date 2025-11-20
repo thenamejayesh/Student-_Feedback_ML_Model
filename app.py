@@ -54,7 +54,7 @@ model = load_model()
 # ---------------------- LOAD CSV AUTOMATICALLY ----------------------
 @st.cache_data
 def load_csv():
-    file_path = "employee_data.csv"   # CSV must be inside project folder
+    file_path = "Employee_clean_Data.csv"   # CSV must be inside project folder
 
     if os.path.exists(file_path):
         return pd.read_csv(file_path)
