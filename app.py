@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 import plotly.express as px
+import os
 
 # ---------------------- PAGE CONFIG ----------------------
 st.set_page_config(
@@ -50,16 +51,28 @@ def load_model():
 
 model = load_model()
 
+# ---------------------- LOAD CSV AUTOMATICALLY ----------------------
+@st.cache_data
+def load_csv():
+    file_path = "employee_data.csv"   # CSV must be inside project folder
+
+    if os.path.exists(file_path):
+        return pd.read_csv(file_path)
+    else:
+        return None
+
+data = load_csv()
+
 # ---------------------- DASHBOARD PAGE ----------------------
 if page == "🏠 Dashboard":
     st.title("📊 Employee Feedback Dashboard")
 
     st.markdown("<div class='main-box'>", unsafe_allow_html=True)
-    
-    uploaded = st.file_uploader("Upload your employee CSV file", type=["csv"])
 
-    if uploaded:
-        df = pd.read_csv(uploaded)
+    if data is None:
+        st.error("❌ CSV file not found!\n\nPlease place `employee_data.csv` in the project folder.")
+    else:
+        df = data
         st.subheader("📄 Data Preview")
         st.dataframe(df)
 
@@ -79,15 +92,12 @@ if page == "🏠 Dashboard":
         st.subheader("🏢 Department Count")
         fig2 = px.pie(df, names="Department")
         st.plotly_chart(fig2, use_container_width=True)
-    else:
-        st.info("Upload a CSV file to view dashboard insights.")
 
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------------- PREDICTION PAGE ----------------------
 elif page == "📈 Prediction":
     st.title("📈 Employee Feedback Prediction")
-
     st.markdown("<div class='main-box'>", unsafe_allow_html=True)
 
     st.write("Enter Employee Details for Prediction:")
